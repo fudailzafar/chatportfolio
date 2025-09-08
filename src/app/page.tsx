@@ -93,7 +93,7 @@ const KeyFilesSection = () => (
 
 export default function Home() {
   return (
-    <div className="min-h-screen p-8 flex flex-col items-center justify-center font-[family-name:var(--font-geist-sans)]">
+    <div className="min-h-screen p-8 flex flex-col items-center justify-center">
       <main className="max-w-2xl w-full space-y-8">
         <div className="flex flex-col items-center">
           <a href="https://tambo.co" target="_blank" rel="noopener noreferrer">
