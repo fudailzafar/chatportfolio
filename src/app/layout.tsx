@@ -17,9 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn("font-sans antialiased", fontSans.variable)}>
-        <ThemeProvider attribute="class" defaultTheme="light">
-          <TooltipProvider delayDuration={0}>{children}</TooltipProvider>
-        </ThemeProvider>
+        <TooltipProvider delayDuration={0}>{children}</TooltipProvider>
       </body>
     </html>
   );

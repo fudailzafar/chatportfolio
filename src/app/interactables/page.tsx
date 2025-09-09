@@ -15,8 +15,7 @@ import { components, tools } from "@/lib/tambo";
 import { TamboProvider } from "@tambo-ai/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
-import { SettingsPanel } from "./components/settings-panel";
-import Portfolio from "../portfolio/components/portfolio";
+import { PortfolioInteractable } from "./components/portfolio-interactable";
 
 export default function InteractablesPage() {
   const [isChatOpen, setIsChatOpen] = useState(true);
@@ -84,7 +83,7 @@ export default function InteractablesPage() {
         <div className="flex-1 overflow-auto">
           <div className="p-8">
             <div className="min-h-screen bg-background font-sans antialiased max-w-2xl mx-auto py-12 sm:py-24 px-6 rounded-2xl">
-              <Portfolio />
+              <PortfolioInteractable />
             </div>
           </div>
         </div>

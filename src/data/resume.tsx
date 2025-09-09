@@ -3,6 +3,7 @@ import { HomeIcon, NotebookIcon } from "lucide-react";
 
 export const DATA = {
   name: "Fudail Mohammed Zafar",
+  header: "Hi, I'm Fudail",
   initials: "FMZ",
   url: "https://fudail.me",
   location: "Chennai, TN",

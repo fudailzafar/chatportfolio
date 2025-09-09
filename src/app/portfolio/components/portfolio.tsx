@@ -1,3 +1,5 @@
+"use client"
+
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import Navbar from "@/components/navbar";
@@ -5,13 +7,31 @@ import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { DATA } from "@/data/resume";
+// import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
+import { useEffect } from "react";
+import { useTheme } from "next-themes";
 
 const BLUR_FADE_DELAY = 0.04;
 
-export default function Portfolio() {
+import { DATA as defaultData } from "@/data/resume";
+
+export default function Portfolio({
+  data,
+  theme,
+}: {
+  data?: any;
+  theme?: string;
+}) {
+  const safeData = data ?? defaultData;
+  const { setTheme } = useTheme();
+
+  // Sync theme prop with next-themes context
+  useEffect(() => {
+    if (theme) setTheme(theme);
+  }, [theme, setTheme]);
+
   return (
     <main className="flex flex-col min-h-[100dvh] space-y-10">
       <section id="hero">
@@ -22,18 +42,18 @@ export default function Portfolio() {
                 delay={BLUR_FADE_DELAY}
                 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
                 yOffset={8}
-                text={`Hi, I'm ${DATA.name.split(" ")[0]} 👋`}
+                text={safeData.header}
               />
               <BlurFadeText
                 className="max-w-[600px] md:text-xl"
                 delay={BLUR_FADE_DELAY}
-                text={DATA.description}
+                text={safeData.description}
               />
             </div>
             <BlurFade delay={BLUR_FADE_DELAY}>
               <Avatar className="size-28 border">
-                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
-                <AvatarFallback>{DATA.initials}</AvatarFallback>
+                <AvatarImage alt={safeData.name} src={safeData.avatarUrl} />
+                <AvatarFallback>{safeData.initials}</AvatarFallback>
               </Avatar>
             </BlurFade>
           </div>
@@ -45,7 +65,7 @@ export default function Portfolio() {
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 4}>
           <div className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
-            <Markdown>{DATA.summary}</Markdown>
+            <Markdown>{safeData.summary}</Markdown>
           </div>
         </BlurFade>
       </section>
@@ -54,7 +74,7 @@ export default function Portfolio() {
           <BlurFade delay={BLUR_FADE_DELAY * 5}>
             <h2 className="text-xl font-bold">Work Experience</h2>
           </BlurFade>
-          {DATA.work.map((work, id) => (
+          {safeData.work.map((work: any, id: number) => (
             <BlurFade
               key={work.company}
               delay={BLUR_FADE_DELAY * 6 + id * 0.05}
@@ -79,7 +99,7 @@ export default function Portfolio() {
           <BlurFade delay={BLUR_FADE_DELAY * 7}>
             <h2 className="text-xl font-bold">Education</h2>
           </BlurFade>
-          {DATA.education.map((education, id) => (
+          {safeData.education.map((education: any, id: number) => (
             <BlurFade
               key={education.school}
               delay={BLUR_FADE_DELAY * 8 + id * 0.05}
@@ -103,7 +123,7 @@ export default function Portfolio() {
             <h2 className="text-xl font-bold">Skills</h2>
           </BlurFade>
           <div className="flex flex-wrap gap-1">
-            {DATA.skills.map((skill, id) => (
+            {safeData.skills.map((skill: string, id: number) => (
               <BlurFade key={skill} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
                 <Badge key={skill}>{skill}</Badge>
               </BlurFade>
@@ -131,7 +151,7 @@ export default function Portfolio() {
             </div>
           </BlurFade>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto">
-            {DATA.projects.map((project, id) => (
+            {safeData.projects.map((project: any, id: number) => (
               <BlurFade
                 key={project.title}
                 delay={BLUR_FADE_DELAY * 12 + id * 0.05}
@@ -165,7 +185,7 @@ export default function Portfolio() {
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 Want to chat? Just shoot me a dm{" "}
                 <Link
-                  href={DATA.contact.social.LinkedIn.url}
+                  href={safeData.contact.social.LinkedIn.url}
                   className="text-blue-500 hover:underline"
                 >
                   with a direct question on LinkedIn
@@ -176,7 +196,7 @@ export default function Portfolio() {
           </BlurFade>
         </div>
       </section>
-      <Navbar />
+      <Navbar theme={theme} />
     </main>
   );
 }
