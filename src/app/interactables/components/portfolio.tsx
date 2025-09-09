@@ -1,36 +1,30 @@
-"use client"
+"use client";
 
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
-import Navbar from "@/components/navbar";
 import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-// import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
-import { useEffect } from "react";
-import { useTheme } from "next-themes";
+import { DATA as defaultData } from "@/data/resume";
+import { Icons } from "@/components/icons";
+import { Dock, DockIcon } from "@/components/magicui/dock";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { ModeToggle } from "@/components/mode-toggle";
 
 const BLUR_FADE_DELAY = 0.04;
 
-import { DATA as defaultData } from "@/data/resume";
-
-export default function Portfolio({
-  data,
-  theme,
-}: {
-  data?: any;
-  theme?: string;
-}) {
+export default function Portfolio({ data }: { data?: any }) {
   const safeData = data ?? defaultData;
-  const { setTheme } = useTheme();
-
-  // Sync theme prop with next-themes context
-  useEffect(() => {
-    if (theme) setTheme(theme);
-  }, [theme, setTheme]);
 
   return (
     <main className="flex flex-col min-h-[100dvh] space-y-10">
@@ -42,7 +36,7 @@ export default function Portfolio({
                 delay={BLUR_FADE_DELAY}
                 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
                 yOffset={8}
-                text={safeData.header}
+                text={safeData.name}
               />
               <BlurFadeText
                 className="max-w-[600px] md:text-xl"
@@ -52,7 +46,7 @@ export default function Portfolio({
             </div>
             <BlurFade delay={BLUR_FADE_DELAY}>
               <Avatar className="size-28 border">
-                <AvatarImage alt={safeData.name} src={safeData.avatarUrl} />
+                <AvatarImage alt={safeData.initials} src={safeData.avatarUrl} />
                 <AvatarFallback>{safeData.initials}</AvatarFallback>
               </Avatar>
             </BlurFade>
@@ -81,7 +75,6 @@ export default function Portfolio({
             >
               <ResumeCard
                 key={work.company}
-                logoUrl={work.logoUrl}
                 altText={work.company}
                 title={work.company}
                 subtitle={work.title}
@@ -107,7 +100,6 @@ export default function Portfolio({
               <ResumeCard
                 key={education.school}
                 href={education.href}
-                logoUrl={education.logoUrl}
                 altText={education.school}
                 title={education.school}
                 subtitle={education.degree}
@@ -183,20 +175,95 @@ export default function Portfolio({
                 Get in Touch
               </h2>
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Want to chat? Just shoot me a dm{" "}
-                <Link
-                  href={safeData.contact.social.LinkedIn.url}
-                  className="text-blue-500 hover:underline"
-                >
-                  with a direct question on LinkedIn
-                </Link>{" "}
-                and I&apos;ll respond whenever I can. I will ignore all spam.
+                Want to chat? Just shoot me a dm with a direct question on
+                LinkedIn and I&apos;ll respond whenever I can. I will ignore all
+                spam.
               </p>
             </div>
           </BlurFade>
         </div>
       </section>
-      <Navbar theme={theme} />
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 mx-auto mb-4 flex origin-bottom h-full max-h-14">
+        <div className="fixed bottom-0 inset-x-0 h-16 w-full bg-background to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_top,black,transparent)] dark:bg-background"></div>
+        <Dock className="z-50 pointer-events-auto relative mx-auto flex min-h-full h-full items-center px-1 bg-background [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] transform-gpu dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset] ">
+          {/* Navbar links from props */}
+          {safeData.navbar?.map((item: any) => {
+            // Map icon string to actual icon component
+            const iconMap: Record<string, any> = {
+              github: Icons.github,
+              linkedin: Icons.linkedin,
+              x: Icons.x,
+              email: Icons.email,
+            };
+            const IconComponent = typeof item.icon === "string" ? iconMap[item.icon] : item.icon;
+            return (
+              <DockIcon key={item.href}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        buttonVariants({ variant: "ghost", size: "icon" }),
+                        "size-12"
+                      )}
+                    >
+                      {IconComponent ? <IconComponent className="size-4" /> : null}
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{item.label}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </DockIcon>
+            );
+          })}
+          <Separator orientation="vertical" className="h-full" />
+          {/* Contact social links from props */}
+          {safeData.contact?.social &&
+            Object.entries(safeData.contact.social)
+              .filter(([_, social]: any) => social.navbar)
+              .map(([name, social]: any) => {
+                const iconMap: Record<string, any> = {
+                  github: Icons.github,
+                  linkedin: Icons.linkedin,
+                  x: Icons.x,
+                  email: Icons.email,
+                };
+                const IconComponent = typeof social.icon === "string" ? iconMap[social.icon] : social.icon;
+                return (
+                  <DockIcon key={name}>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Link
+                          href={social.url}
+                          className={cn(
+                            buttonVariants({ variant: "ghost", size: "icon" }),
+                            "size-12"
+                          )}
+                        >
+                          {IconComponent ? <IconComponent className="size-4" /> : null}
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{name}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </DockIcon>
+                );
+              })}
+          <Separator orientation="vertical" className="h-full py-2" />
+          <DockIcon>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <ModeToggle />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Theme</p>
+              </TooltipContent>
+            </Tooltip>
+          </DockIcon>
+        </Dock>
+      </div>
     </main>
   );
 }

@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { withInteractable } from "@tambo-ai/react";
 import { z } from "zod";
-import Portfolio from "../../portfolio/components/portfolio";
+import Portfolio from "./portfolio";
 import { DATA as initialData } from "@/data/resume";
 
 // Define schema for portfolio data (simplified for demo)
 const portfolioSchema = z.object({
   name: z.string(),
-  header: z.string(),
   description: z.string(),
   summary: z.string(),
   skills: z.array(z.string()),
@@ -50,7 +49,15 @@ const portfolioSchema = z.object({
       href: z.string(),
     })
   ),
-  contact: z.any(),
+  contact: z.array(
+    z.object({
+      email: z.string(),
+      tel: z.string(),
+      github: z.string(),
+      linkedin: z.string(),
+      twitter: z.string(),
+    })
+  ),
   avatarUrl: z.string(),
   initials: z.string(),
   location: z.string(),
@@ -61,8 +68,7 @@ const portfolioSchema = z.object({
 });
 
 function PortfolioInteractableBase(props: any) {
-  // Pass theme prop to Portfolio and Navbar
-  return <Portfolio data={props} theme={props.theme} />;
+  return <Portfolio data={props} />;
 }
 
 const InteractablePortfolio = withInteractable(PortfolioInteractableBase, {

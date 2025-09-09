@@ -57,7 +57,7 @@ export default function InteractablesPage() {
                   contextKey="interactables-demo"
                   variant="bordered"
                 >
-                  <MessageInputTextarea placeholder="Update the settings..." />
+                  <MessageInputTextarea placeholder="Update the name..." />
                   <MessageInputToolbar>
                     <MessageInputSubmitButton />
                   </MessageInputToolbar>

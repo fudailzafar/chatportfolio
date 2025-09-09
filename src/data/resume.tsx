@@ -2,17 +2,14 @@ import { Icons } from "@/components/icons";
 import { HomeIcon, NotebookIcon } from "lucide-react";
 
 export const DATA = {
-  name: "Fudail Mohammed Zafar",
-  header: "Hi, I'm Fudail",
+  name: "Hi, I'm Fudail",
   initials: "FMZ",
-  url: "https://fudail.me",
   location: "Chennai, TN",
   locationLink: "https://www.google.com/maps/place/chennai",
   description:
     "3rd year Computer Science Student. I love building things and helping people. Very active on LinkedIn.",
   summary:
     "At the mid of 2023, I wrote my first Hello World program in C. After that, I fell in love with building applications and programming in the world of Computer Science. I am [pursuing a degree in computer science and engineering](/#education), and I've [interned at 2 tech funded startups](/#work).",
-  avatarUrl: "/me.png",
   skills: [
     "React",
     "Next.js",
@@ -26,10 +23,7 @@ export const DATA = {
     "TailwindCSS",
     "C++",
   ],
-  navbar: [
-    { href: "/", icon: HomeIcon, label: "Home" },
-    { href: "/blog", icon: NotebookIcon, label: "Blog" },
-  ],
+  navbar: [{ href: "/", icon: HomeIcon, label: "Home" }],
   contact: {
     email: "fudail.zafar@gmail.com",
     tel: "+917200538725",
@@ -57,10 +51,10 @@ export const DATA = {
       },
       email: {
         name: "Send Email",
-        url: "#",
+        url: "mailto:fudail.zafar@gmail.com",
         icon: Icons.email,
 
-        navbar: false,
+        navbar: true,
       },
     },
   },
@@ -72,7 +66,6 @@ export const DATA = {
       badges: [],
       location: "Remote",
       title: "Software Engineer Intern",
-      logoUrl: "/vayuratha.png",
       start: "January 2025",
       end: "April 2025",
       description:
@@ -84,7 +77,6 @@ export const DATA = {
       href: "https://networksism.com",
       location: "Remote",
       title: "Software Engineer Intern",
-      logoUrl: "/ns.png",
       start: "November 2024",
       end: "January 2025",
       description:
@@ -96,7 +88,6 @@ export const DATA = {
       school: "BSA Crescent Institue of Science & Technology",
       href: "https://crescent.education/",
       degree: "Bachelor's Degree of Computer Science & Engineering",
-      logoUrl: "/crescent.png",
       start: "2023",
       end: "Pursuing",
     },
@@ -104,7 +95,6 @@ export const DATA = {
       school: "Al Hira Model School",
       href: "https://www.al-hiramodelschool.com/",
       degree: "High School",
-      logoUrl: "/alhira.png",
       start: "2017",
       end: "2023",
     },
@@ -112,7 +102,6 @@ export const DATA = {
       school: "The Indian High School Dubai",
       href: "https://ihsdubai.org/",
       degree: "Middle School",
-      logoUrl: "/ihs.png",
       start: "2014",
       end: "2017",
     },
@@ -120,7 +109,6 @@ export const DATA = {
       school: "GEMS Legacy School Dubai",
       href: "https://www.gemslegacyschool-dubai.com/",
       degree: "Primary School",
-      logoUrl: "/gems.svg",
       start: "2009",
       end: "2014",
     },
@@ -154,8 +142,6 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/caleasy.png",
-      video: "",
     },
     {
       title: "StockHub",
@@ -184,8 +170,6 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/stockhub.png",
-      video: "",
     },
     {
       title: "Consicio",
@@ -214,8 +198,6 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/consicio.png",
-      video: "",
     },
     {
       title: "HerSaheli",
@@ -244,8 +226,6 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/hersaheli.png",
-      video: "",
     },
   ],
 } as const;
