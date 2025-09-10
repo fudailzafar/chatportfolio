@@ -41,8 +41,7 @@ export default function InteractablesPage() {
                   Chat Assistant
                 </h2>
                 <p className="text-sm text-gray-600 mt-1">
-                  Try: &quot;Change the name to John Doe&quot; or &quot;Enable
-                  dark mode&quot;
+                  Try: &quot;Change the name to John Doe&quot; or &quot;Enable Dark Mode&quot;
                 </p>
               </div>
 
@@ -52,7 +51,7 @@ export default function InteractablesPage() {
                 </ThreadContent>
               </ScrollableMessageContainer>
 
-              <div className="p-4 border-t border-gray-200">
+              <div className="p-4 text-black">
                 <MessageInput
                   contextKey="interactables-demo"
                   variant="bordered"

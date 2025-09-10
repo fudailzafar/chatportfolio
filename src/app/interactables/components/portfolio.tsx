@@ -20,11 +20,30 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ModeToggle } from "@/components/mode-toggle";
+import { HomeIcon } from "lucide-react";
+import { useEffect } from "react";
+import { useTheme } from "next-themes";
 
 const BLUR_FADE_DELAY = 0.04;
 
 export default function Portfolio({ data }: { data?: any }) {
   const safeData = data ?? defaultData;
+  const { theme, setTheme } = useTheme();
+
+  // Sync theme from props
+  useEffect(() => {
+    // Move iconMap outside of JSX and remove type annotation
+    const iconMap = {
+      github: Icons.github,
+      linkedin: Icons.linkedin,
+      x: Icons.x,
+      email: Icons.email,
+      home: HomeIcon,
+    };
+    if (safeData.theme && safeData.theme !== theme) {
+      setTheme(safeData.theme);
+    }
+  }, [safeData.theme, theme, setTheme]);
 
   return (
     <main className="flex flex-col min-h-[100dvh] space-y-10">
@@ -187,36 +206,50 @@ export default function Portfolio({ data }: { data?: any }) {
         <div className="fixed bottom-0 inset-x-0 h-16 w-full bg-background to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_top,black,transparent)] dark:bg-background"></div>
         <Dock className="z-50 pointer-events-auto relative mx-auto flex min-h-full h-full items-center px-1 bg-background [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] transform-gpu dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset] ">
           {/* Navbar links from props */}
-          {safeData.navbar?.map((item: any) => {
-            // Map icon string to actual icon component
+          {/* Move iconMap outside of map callback to fix syntax errors */}
+          {(() => {
             const iconMap: Record<string, any> = {
               github: Icons.github,
               linkedin: Icons.linkedin,
               x: Icons.x,
               email: Icons.email,
+              home: HomeIcon,
             };
-            const IconComponent = typeof item.icon === "string" ? iconMap[item.icon] : item.icon;
-            return (
-              <DockIcon key={item.href}>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        buttonVariants({ variant: "ghost", size: "icon" }),
-                        "size-12"
-                      )}
-                    >
-                      {IconComponent ? <IconComponent className="size-4" /> : null}
-                    </Link>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{item.label}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </DockIcon>
-            );
-          })}
+            return Array.isArray(safeData.navbar)
+              ? safeData.navbar.map((item: any) => {
+                  const IconComponent =
+                    typeof item.icon === "string"
+                      ? iconMap[item.icon]
+                      : item.icon;
+                  return (
+                    <DockIcon key={item.href}>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Link
+                            href={item.href}
+                            className={cn(
+                              buttonVariants({
+                                variant: "ghost",
+                                size: "icon",
+                              }),
+                              "size-12"
+                            )}
+                          >
+                            {IconComponent ? (
+                              <IconComponent className="size-4" />
+                            ) : null}
+                          </Link>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>{item.label}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </DockIcon>
+                  );
+                })
+              : null;
+          })()}
+
           <Separator orientation="vertical" className="h-full" />
           {/* Contact social links from props */}
           {safeData.contact?.social &&
@@ -229,7 +262,10 @@ export default function Portfolio({ data }: { data?: any }) {
                   x: Icons.x,
                   email: Icons.email,
                 };
-                const IconComponent = typeof social.icon === "string" ? iconMap[social.icon] : social.icon;
+                const IconComponent =
+                  typeof social.icon === "string"
+                    ? iconMap[social.icon]
+                    : social.icon;
                 return (
                   <DockIcon key={name}>
                     <Tooltip>
@@ -241,7 +277,9 @@ export default function Portfolio({ data }: { data?: any }) {
                             "size-12"
                           )}
                         >
-                          {IconComponent ? <IconComponent className="size-4" /> : null}
+                          {IconComponent ? (
+                            <IconComponent className="size-4" />
+                          ) : null}
                         </Link>
                       </TooltipTrigger>
                       <TooltipContent>

@@ -64,7 +64,7 @@ const portfolioSchema = z.object({
   locationLink: z.string(),
   url: z.string(),
   navbar: z.any(),
-  theme: z.enum(["light", "dark"]).default("dark"),
+  theme: z.enum(["light", "dark"]).default("light"), // Theme toggle
 });
 
 function PortfolioInteractableBase(props: any) {
