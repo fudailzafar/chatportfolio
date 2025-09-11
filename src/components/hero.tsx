@@ -22,7 +22,7 @@ export function HeroNew() {
       {/* Top banner section */}
       <div className="w-full bg-gray-900 hover:bg-gray-950 text-white text-center py-5 text-base font-light flex items-center justify-center">
         <Link
-          href="/launch"
+          href="https://dev.to/fudailzafar/building-a-portfolio-while-you-chat-my-tambohack-project-14m3"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-1"
