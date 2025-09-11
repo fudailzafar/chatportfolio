@@ -32,25 +32,25 @@ export default function Portfolio({ data }: { data?: any }) {
 
   // Sync theme from props
   useEffect(() => {
-    // Move iconMap outside of JSX and remove type annotation
-    const iconMap = {
-      github: Icons.github,
-      linkedin: Icons.linkedin,
-      x: Icons.x,
-      email: Icons.email,
-      home: HomeIcon,
-    };
     if (safeData.theme && safeData.theme !== theme) {
       setTheme(safeData.theme);
     }
   }, [safeData.theme, theme, setTheme]);
 
+  // Portfolio-only font and color styles
+  const portfolioFont = safeData.font ? { fontFamily: safeData.font } : {};
+  const portfolioColor = safeData.color ? { color: safeData.color } : {};
+  const portfolioTextStyle = { ...portfolioFont, ...portfolioColor };
+
   return (
-    <main className="flex flex-col min-h-[100dvh] space-y-10">
+    <main
+      className="flex flex-col min-h-[100dvh] space-y-10"
+      style={portfolioFont}
+    >
       <section id="hero">
         <div className="mx-auto w-full max-w-2xl space-y-8">
           <div className="gap-2 flex justify-between">
-            <div className="flex-col flex flex-1 space-y-1.5">
+            <div className="flex-col flex flex-1 space-y-1.5" style={portfolioTextStyle}>
               <BlurFadeText
                 delay={BLUR_FADE_DELAY}
                 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
@@ -65,8 +65,8 @@ export default function Portfolio({ data }: { data?: any }) {
             </div>
             <BlurFade delay={BLUR_FADE_DELAY}>
               <Avatar className="size-28 border">
-                <AvatarImage alt={safeData.initials} src={safeData.avatarUrl} />
-                <AvatarFallback>{safeData.initials}</AvatarFallback>
+                <AvatarImage alt={safeData.initials} src={safeData.avatarUrl} style={portfolioTextStyle}/>
+                <AvatarFallback style={portfolioTextStyle}>{safeData.initials}</AvatarFallback>
               </Avatar>
             </BlurFade>
           </div>
@@ -74,18 +74,23 @@ export default function Portfolio({ data }: { data?: any }) {
       </section>
       <section id="about">
         <BlurFade delay={BLUR_FADE_DELAY * 3}>
-          <h2 className="text-xl font-bold">About</h2>
+          <h2 className="text-xl font-bold" style={portfolioTextStyle}>About</h2>
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 4}>
-          <div className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
+          <div
+            className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert"
+            style={portfolioTextStyle}
+          >
             <Markdown>{safeData.summary}</Markdown>
           </div>
         </BlurFade>
       </section>
       <section id="work">
-        <div className="flex min-h-0 flex-col gap-y-3">
+        <div className="flex min-h-0 flex-col gap-y-3" style={portfolioFont}>
           <BlurFade delay={BLUR_FADE_DELAY * 5}>
-            <h2 className="text-xl font-bold">Work Experience</h2>
+            <h2 className="text-xl font-bold" style={portfolioTextStyle}>
+              Work Experience
+            </h2>
           </BlurFade>
           {safeData.work.map((work: any, id: number) => (
             <BlurFade
@@ -107,9 +112,11 @@ export default function Portfolio({ data }: { data?: any }) {
         </div>
       </section>
       <section id="education">
-        <div className="flex min-h-0 flex-col gap-y-3">
+        <div className="flex min-h-0 flex-col gap-y-3" style={portfolioFont}>
           <BlurFade delay={BLUR_FADE_DELAY * 7}>
-            <h2 className="text-xl font-bold">Education</h2>
+            <h2 className="text-xl font-bold" style={portfolioTextStyle}>
+              Education
+            </h2>
           </BlurFade>
           {safeData.education.map((education: any, id: number) => (
             <BlurFade
@@ -129,31 +136,55 @@ export default function Portfolio({ data }: { data?: any }) {
         </div>
       </section>
       <section id="skills">
-        <div className="flex min-h-0 flex-col gap-y-3">
+        <div className="flex min-h-0 flex-col gap-y-3" style={portfolioFont}>
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
-            <h2 className="text-xl font-bold">Skills</h2>
+            <h2 className="text-xl font-bold" style={portfolioTextStyle}>
+              Skills
+            </h2>
           </BlurFade>
           <div className="flex flex-wrap gap-1">
             {safeData.skills.map((skill: string, id: number) => (
               <BlurFade key={skill} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
-                <Badge key={skill}>{skill}</Badge>
+                <Badge
+                  key={skill}
+                  style={
+                    safeData.color
+                      ? {
+                          backgroundColor: safeData.color,
+                          color: "#fff",
+                          fontFamily: safeData.font,
+                        }
+                      : { fontFamily: safeData.font }
+                  }
+                >
+                  {skill}
+                </Badge>
               </BlurFade>
             ))}
           </div>
         </div>
       </section>
       <section id="projects">
-        <div className="space-y-12 w-full py-12">
+        <div className="space-y-12 w-full py-12" style={portfolioFont}>
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
+                <div
+                  className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm"
+                  style={portfolioTextStyle}
+                >
                   My Projects
                 </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                <h2
+                  className="text-3xl font-bold tracking-tighter sm:text-5xl"
+                  style={portfolioTextStyle}
+                >
                   Check out my latest work
                 </h2>
-                <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <p
+                  className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
+                  style={portfolioTextStyle}
+                >
                   I&apos;ve worked on a variety of projects, from simple
                   websites to complex web applications. Here are a few of my
                   favorites.
@@ -184,16 +215,28 @@ export default function Portfolio({ data }: { data?: any }) {
         </div>
       </section>
       <section id="contact">
-        <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
+        <div
+          className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12"
+          style={portfolioFont}
+        >
           <BlurFade delay={BLUR_FADE_DELAY * 16}>
             <div className="space-y-3">
-              <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
+              <div
+                className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm"
+                style={portfolioTextStyle}
+              >
                 Contact
               </div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+              <h2
+                className="text-3xl font-bold tracking-tighter sm:text-5xl"
+                style={portfolioTextStyle}
+              >
                 Get in Touch
               </h2>
-              <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              <p
+                className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
+                style={portfolioTextStyle}
+              >
                 Want to chat? Just shoot me a dm with a direct question on
                 LinkedIn and I&apos;ll respond whenever I can. I will ignore all
                 spam.

@@ -27,7 +27,7 @@ export function HeroNew() {
           rel="noopener noreferrer"
           className="flex items-center gap-1"
         >
-          Big news! Watch ChatPortfolio Demo! <ArrowRight size={20} />
+          Hey! Read the supporting Blog here! <ArrowRight size={20} />
         </Link>
       </div>
       {/* Main hero section */}
