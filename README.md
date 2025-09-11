@@ -7,7 +7,7 @@ https://tambohack.vercel.app/chatportfolio-demo.mp4
 
 ## Live Demo (try it out!)
 
-https://tambohack.vercel.app/
+[![Watch the demo](demo.gif)](https://tambohack.vercel.app/chatportfolio-demo.mp4)
 
 ## How It Works
 
