@@ -3,7 +3,7 @@ export function VideoDialog() {
     <div className="flex flex-col items-center justify-center w-full">
       <div className="hidden sm:block">
         <video
-          src="/chatportfolio-demo.mp4"
+          src="/demo.mp4"
           autoPlay
           loop
           muted
@@ -12,7 +12,7 @@ export function VideoDialog() {
       </div>
       <div className="block sm:hidden">
         <video
-          src="/chatportfolio-demo.mp4"
+          src="/demo.mp4"
           autoPlay
           loop
           muted

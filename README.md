@@ -3,11 +3,11 @@
 Talk to your resume like you would to a friend: "I have prior experience at Google" or "I'm a Full Stack Developer". The AI understands context and searches the Schema. It can update and manage your portfolio as you go.
 
 ## Demo
-https://tambohack.vercel.app/chatportfolio-demo.mp4
+https://tambohack.vercel.app/demo.mp4
 
 ## Live Demo (try it out!)
 
-[![Watch the demo](demo.gif)](https://tambohack.vercel.app/chatportfolio-demo.mp4)
+[![Watch the demo](demo.gif)](https://tambohack.vercel.app/demo.mp4)
 
 ## How It Works
 
