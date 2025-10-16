@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import Link from 'next/link';
-import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
-import { Button } from './ui/button';
-import { easeInOutCubic } from '@/lib/animation';
+import { motion, useScroll, useTransform } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+import { Button } from "./ui/button";
+import { easeInOutCubic } from "@/lib/animation";
 
 export function HeroNew() {
   const { scrollY } = useScroll({
-    offset: ['start start', 'end start'],
+    offset: ["start start", "end start"],
   });
   const y1 = useTransform(scrollY, [0, 300], [100, 0]);
   const y2 = useTransform(scrollY, [0, 300], [50, 0]);
@@ -35,18 +35,18 @@ export function HeroNew() {
         <main className="mx-auto pt-14 sm:pt-24 md:pt-32 text-center relative px-4">
           <div className="relative">
             <motion.div
-              initial={{ scale: 4.5, height: '80vh' }}
-              animate={{ scale: 1, height: '10vh' }}
+              initial={{ scale: 4.5, height: "80vh" }}
+              animate={{ scale: 1, height: "10vh" }}
               transition={{
                 scale: { delay: 0, duration: 1.8, ease: easeInOutCubic },
                 height: { delay: 0, duration: 1.8, ease: easeInOutCubic },
               }}
               className="mb-16 relative z-20"
-              style={{ transformOrigin: 'top' }}
+              style={{ transformOrigin: "top" }}
             >
-              <div className="mt-3 sm:-mt-[72px] md:-mt-24 bg-green-200 text-white text-xl font-bold p-0 h-20 w-20 flex items-center justify-center rounded-3xl mx-auto shadow-md">
+              <div className="mt-3 sm:-mt-[72px] md:-mt-24 bg-black text-white text-xl font-bold p-0 h-20 w-20 flex items-center justify-center rounded-3xl mx-auto shadow-md">
                 <Image
-                  src={'/Octo-Icon.svg'}
+                  src={"/logo.png"}
                   alt=""
                   width={1}
                   height={1}
@@ -86,7 +86,7 @@ export function HeroNew() {
             </motion.p>
           </div>
 
-          <div className="flex flex-col gap-3 mt-16">
+          <div className="mt-16">
             <Link href="/interactables">
               <Button
                 variant="default"
@@ -94,12 +94,6 @@ export function HeroNew() {
               >
                 Create Your Portfolio
               </Button>
-            </Link>
-            <Link
-              href={'/chat'}
-              className="text-design-gray text-sm sm:text-xs hover:underline"
-            >
-              Chat with AI
             </Link>
           </div>
         </main>
