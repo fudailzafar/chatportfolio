@@ -25,7 +25,7 @@ This app demonstrates the power of **Tambo AI** for building conversational inte
 ## Run Locally
 
 ```bash
-git clone https://github.com/fudailzafar/tambo-hack.git
+git clone https://github.com/fudailzafar/chatportfolio.git
 cd tambo-hack
 npm install --force
 npx tambo init
