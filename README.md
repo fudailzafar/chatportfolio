@@ -3,7 +3,7 @@
 Talk to your resume like you would to a friend: "I have prior experience at Google" or "I'm a Full Stack Developer". The AI understands context and searches the Schema. It can update and manage your portfolio as you go.
 
 ## Demo
-https://tambohack.vercel.app/demo.mp4
+https://the-chat-portfolio.vercel.app
 
 ## Live Demo (try it out!)
 
@@ -26,7 +26,7 @@ This app demonstrates the power of **Tambo AI** for building conversational inte
 
 ```bash
 git clone https://github.com/fudailzafar/chatportfolio.git
-cd tambo-hack
+cd chatportfolio
 npm install --force
 npx tambo init
 npm run dev
